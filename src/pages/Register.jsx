@@ -20,9 +20,10 @@ export default function Register() {
     }
     setLoading(true);
     try {
-      await API.post("/api/auth/register", { name, email, password });
+      const res = await API.post("/api/auth/register", { name, email, password });
+      localStorage.setItem("token", res.data.token);
       toast.success("Account created successfully!");
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       toast.error(err.response?.data?.message || "Registration failed. Try again.");
       setError(err.response?.data?.message || "Registration failed. Try again.");
