@@ -22,6 +22,7 @@ export default function Register() {
     try {
       const res = await API.post("/auth/register", { name, email, password });
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userName", res.data.user.name);
       toast.success("Account created successfully!");
       navigate("/dashboard");
     } catch (err) {
