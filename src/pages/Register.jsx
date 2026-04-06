@@ -20,7 +20,7 @@ export default function Register() {
     }
     setLoading(true);
     try {
-      const res = await API.post("/api/auth/register", { name, email, password });
+      const res = await API.post("/auth/register", { name, email, password });
       localStorage.setItem("token", res.data.token);
       toast.success("Account created successfully!");
       navigate("/dashboard");

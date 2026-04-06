@@ -11,11 +11,11 @@ export default function Dashboard() {
   const [error, setError] = useState("");
   const [copiedId, setCopiedId] = useState(null);
 
-  const BASE = import.meta.env.VITE_BASE_URL ;
+  const BASE = import.meta.env.VITE_BASE_URL.replace('/api', '');
 
   const fetchUrls = async () => {
     try {
-      const res = await API.get("/api/url/my");
+      const res = await API.get("/url/my");
       setUrls(res.data);
     } catch {
       /* silent */
@@ -34,7 +34,7 @@ export default function Dashboard() {
     setError("");
     setLoading(true);
     try {
-      await API.post("/api/url/shorten", { originalUrl: url });
+      await API.post("/url/shorten", { originalUrl: url });
       setUrl("");
       toast.success("URL shortened successfully!");
       await fetchUrls();
@@ -55,7 +55,7 @@ export default function Dashboard() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this URL?")) return;
     try {
-      await API.delete(`/api/url/${id}`);
+      await API.delete(`/url/${id}`);
       toast.success("URL deleted successfully!");
       fetchUrls();
     } catch (err) {
